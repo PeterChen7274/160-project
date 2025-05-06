@@ -73,20 +73,42 @@ struct CreateWrongTurnPinView: View {
     }
 }
 
-// Simple location manager to get user's location
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     @Published var location: CLLocation?
+    @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
     override init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Location updated: \(locations)")
         location = locations.last
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location error: \(error.localizedDescription)")
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        authorizationStatus = manager.authorizationStatus
+        print("Authorization status: \(authorizationStatus.rawValue)")
+        
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            print("Location access granted")
+            manager.startUpdatingLocation()
+        case .denied, .restricted:
+            print("Location access denied")
+        case .notDetermined:
+            print("Location authorization not determined yet")
+            manager.requestWhenInUseAuthorization()
+        @unknown default:
+            break
+        }
     }
 }
