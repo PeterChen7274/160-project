@@ -10,11 +10,3 @@ struct Hazard: Identifiable, Codable {
     let trailName: String
 }
 
-struct WrongTurnPin: Identifiable, Codable {
-    var id = UUID()
-    let description: String
-    let landmarks: String
-    let latitude: Double
-    let longitude: Double
-    let createdAt = Date()
-}
