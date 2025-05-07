@@ -8,5 +8,6 @@ struct Hazard: Identifiable, Codable {
     let reportedDate: String  
     let status: String
     let trailName: String
+    let userId: String
 }
 
