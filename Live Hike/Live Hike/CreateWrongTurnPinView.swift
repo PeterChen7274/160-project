@@ -5,6 +5,7 @@ struct CreateWrongTurnPinView: View {
     @State private var description = ""
     @State private var landmarks = ""
     @State private var showingSuccess = false
+    let trail: Trail
     
     @Environment(\.dismiss) var dismiss
     @StateObject private var locationManager = LocationManager()
