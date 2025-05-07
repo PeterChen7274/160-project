@@ -51,6 +51,7 @@ struct TrailHazardsView: View {
             }
             .tag(0)
             
+            
             WrongTurnPinsView()
                 .tabItem {
                     Label("Navigation Help", systemImage: "arrow.triangle.turn.up.right.diamond")
@@ -61,7 +62,7 @@ struct TrailHazardsView: View {
         .navigationTitle(trail.name)
     }
 
-   
+    
     private func severityColor(_ severity: String) -> Color {
         switch severity.lowercased() {
         case "high": return .red
