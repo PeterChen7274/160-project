@@ -2,17 +2,18 @@ import SwiftUI
 
 struct TrailHazardsView: View {
     let trail: Trail
-    @State private var selectedTab = 0  
+    @State private var selectedTab = 0
     
     var body: some View {
-        List {
-            Image(trail.mapImageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(10)
-                .padding(.bottom)
-
-            Section(header: Text("Hazards").font(.headline)) {
+        TabView(selection: $selectedTab) {
+            // Original hazards tab
+            List {
+                Image(trail.mapImageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(10)
+                    .padding(.bottom)
+                
                 ForEach(trail.hazards) { hazard in
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
@@ -27,10 +28,10 @@ struct TrailHazardsView: View {
                                 .background(severityColor(hazard.severity).opacity(0.2))
                                 .cornerRadius(8)
                         }
-
+                        
                         Text(hazard.description)
                             .font(.body)
-
+                        
                         HStack {
                             Image(systemName: "clock")
                             Text(hazard.reportedDate)
@@ -44,15 +45,17 @@ struct TrailHazardsView: View {
                     .padding(.vertical, 6)
                 }
             }
-            
-            Section {
-                NavigationLink(destination: WrongTurnPinsView(trail: trail)) {
-                    Label("Navigation Help", systemImage: "arrow.triangle.turn.up.right.diamond")
-                    Text("\(PinStorage.shared.loadPinsForTrail(trailId: trail.id.uuidString).count) navigation markers")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
+            .tabItem {
+                Label("Hazards", systemImage: "exclamationmark.triangle")
             }
+            .tag(0)
+            
+            // Navigation help tab with wrong turn pins
+            WrongTurnPinsView(trail: trail)
+                .tabItem {
+                    Label("Navigation Help", systemImage: "arrow.triangle.turn.up.right.diamond")
+                }
+                .tag(1)
         }
         .navigationTitle(trail.name)
     }
