@@ -1,6 +1,7 @@
 import Foundation
 import CoreLocation
 
+
 struct WrongTurnPin: Identifiable, Codable {
     var id = UUID()
     let description: String
@@ -15,7 +16,7 @@ struct WrongTurnPin: Identifiable, Codable {
     }
     
     
-    private enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case id, description, trailId, landmarks, latitude, longitude, createdAt
     }
 }
