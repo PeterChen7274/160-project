@@ -77,16 +77,58 @@ struct CreateWrongTurnPinView: View {
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     @Published var location: CLLocation?
+    @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
+    
+    
+    private let mockLocation = CLLocation(latitude: 37.7749, longitude: -122.4194) // San Francisco
     
     override init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Location updated: \(locations)")
         location = locations.last
     }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location error: \(error.localizedDescription)")
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        authorizationStatus = manager.authorizationStatus
+        print("Authorization status: \(authorizationStatus.rawValue)")
+        
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            print("Location access granted")
+            manager.startUpdatingLocation()
+        case .denied, .restricted:
+            print("Location access denied")
+            #if DEBUG
+            /
+            self.location = mockLocation
+            print("Using mock location for testing")
+            #endif
+        case .notDetermined:
+            print("Location authorization not determined yet")
+            manager.requestWhenInUseAuthorization()
+            #if DEBUG
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                if self.location == nil {
+                    self.location = self.mockLocation
+                    print("Using mock location for testing")
+                }
+            }
+            #endif
+        @unknown default:
+            break
+        }
+    }
 }
+
+
