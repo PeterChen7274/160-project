@@ -10,8 +10,14 @@ struct Hazard: Identifiable, Codable {
     let trailName: String
     let userId: String
 
-    init(id: UUID = UUID(), type: String, severity: String, description: String, 
-         reportedDate: String, status: String, trailName: String, userId: String) {
+    init(id: UUID = UUID(),
+         type: String,
+         severity: String,
+         description: String,
+         reportedDate: String,
+         status: String,
+         trailName: String,
+         userId: String) {
         self.id = id
         self.type = type
         self.severity = severity
