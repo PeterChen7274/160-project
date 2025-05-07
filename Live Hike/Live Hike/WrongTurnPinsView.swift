@@ -6,52 +6,45 @@ struct WrongTurnPinsView: View {
     
     @State private var pins: [WrongTurnPin] = []
     @State private var showingAddPin = false
+    @State private var selectedPin: WrongTurnPin?
     @State private var isLoading = false 
     
     var body: some View {
-        VStack {
-            Text("Navigation Help")
-                .font(.headline)
-                .padding(.top)
-            
-            if pins.isEmpty {
-                Text("No navigation markers available for this trail")
-                    .foregroundColor(.secondary)
-                    .padding()
-                Spacer()
-            } else {
-                List(pins) { pin in
-                    VStack(alignment: .leading) {
-                        Text("Wrong Turn Alert")
-                            .font(.headline)
-                        Text(pin.description)
-                            .padding(.top, 1)
-                        Text("Posted: \(pin.createdAt.formatted(date: .abbreviated, time: .shortened))")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.vertical, 4)
+        ZStack {
+            Map {
+                ForEach(pins) { pin in
+                    Marker("Wrong Turn", coordinate: pin.coordinate)
+                        .tint(.orange)
                 }
             }
-            
-            Button {
-                showingAddPin = true
-            } label: {
-                Label("Mark Wrong Turn", systemImage: "exclamationmark.triangle")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+            .mapControls {
+                MapUserLocationButton()
+                MapCompass()
             }
-            .padding()
+            
+            VStack {
+                Spacer()
+                
+                Button {
+                    showingAddPin = true
+                } label: {
+                    Label("Mark Wrong Turn", systemImage: "exclamationmark.triangle")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding()
+            }
         }
+        .navigationTitle("Navigation Help")
         .onAppear {
             Task {
                 await loadWrongTurnPins()
             }
         }
         .sheet(isPresented: $showingAddPin) {
-            CreateWrongTurnPinView(trail: trail)
+            CreateWrongTurnPinView(trail: trail) 
                 .onDisappear {
                     Task {
                         await loadWrongTurnPins()
