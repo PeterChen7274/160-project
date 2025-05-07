@@ -4,7 +4,7 @@
 //     let trail: Trail
     
 //     @State private var hazardType = ""
-//     @State private var severity = "Medium"
+//     @State private var severity = "Medium" 
 //     @State private var description = ""
 //     @State private var showingSuccess = false
     
