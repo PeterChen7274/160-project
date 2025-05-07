@@ -19,6 +19,11 @@ class PinStorage {
         return []
     }
     
+    func loadPinsForTrail(trailId: String) -> [WrongTurnPin] {
+        let allPins = loadPins()
+        return allPins.filter { $0.trailId == trailId }
+    }
+    
     func addPin(_ pin: WrongTurnPin) {
         var pins = loadPins()
         pins.append(pin)
