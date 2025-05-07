@@ -79,6 +79,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var location: CLLocation?
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
+    
+    private let mockLocation = CLLocation(latitude: 37.7749, longitude: -122.4194) // San Francisco
+    
     override init() {
         super.init()
         manager.delegate = self
@@ -105,9 +108,20 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             manager.startUpdatingLocation()
         case .denied, .restricted:
             print("Location access denied")
+            #if DEBUG
+            self.location = mockLocation
+            #endif
         case .notDetermined:
-            print("Location authorization not determined yet")
+            
             manager.requestWhenInUseAuthorization()
+            #if DEBUG
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                if self.location == nil {
+                    self.location = self.mockLocation
+                    print("Using mock location for testing")
+                }
+            }
+            #endif
         @unknown default:
             break
         }
