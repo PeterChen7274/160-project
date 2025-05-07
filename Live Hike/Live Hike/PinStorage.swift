@@ -29,4 +29,16 @@ class PinStorage {
         pins.append(pin)
         savePins(pins)
     }
+    
+    func deletePin(withId id: UUID) {
+        var pins = loadPins()
+        pins.removeAll { $0.id == id }
+        savePins(pins)
+    }
+
+    func getUserPins() -> [WrongTurnPin] {
+        let allPins = loadPins()
+        return allPins.filter { $0.userId == UserManager.shared.userId }
+    }
 }
+
