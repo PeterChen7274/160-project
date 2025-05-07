@@ -2,6 +2,7 @@ import SwiftUI
 import CoreLocation
 
 struct CreateWrongTurnPinView: View {
+    let trail: Trail
     @State private var description = ""
     @State private var landmarks = ""
     @State private var showingSuccess = false
@@ -62,11 +63,12 @@ struct CreateWrongTurnPinView: View {
         guard let location = locationManager.location else { return }
         
         let pin = WrongTurnPin(
-            trailId: trail.id.uuidString,
             description: description,
+            trailId: trail.id.uuidString,
             landmarks: landmarks,
             latitude: location.coordinate.latitude,
-            longitude: location.coordinate.longitude
+            longitude: location.coordinate.longitude,
+            userId: UserManager.shared.userId
         )
         
         PinStorage.shared.addPin(pin)
