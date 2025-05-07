@@ -95,15 +95,6 @@ struct TrailHazardsView: View {
     private func loadUserReportedHazards() {
         userReportedHazards = HazardStorage.shared.loadHazardsForTrail(trailName: trail.name)
     }
-    
-    private func severityColor(_ severity: String) -> Color {
-        switch severity.lowercased() {
-        case "high": return .red
-        case "medium": return .orange
-        case "low": return .yellow
-        default: return .gray
-        }
-    }
 }
 
 
