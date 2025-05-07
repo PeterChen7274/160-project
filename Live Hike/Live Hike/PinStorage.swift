@@ -1,5 +1,4 @@
 import Foundation
-
 class PinStorage {
     static let shared = PinStorage()
     
@@ -17,6 +16,11 @@ class PinStorage {
             return pins
         }
         return []
+    }
+
+    func loadPinsForTrail(trailId: String) -> [WrongTurnPin] {
+        let allPins = loadPins()
+        return allPins.filter { $0.trailId == trailId }
     }
     
     func addPin(_ pin: WrongTurnPin) {
