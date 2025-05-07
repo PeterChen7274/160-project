@@ -45,6 +45,20 @@ struct LandingView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                     }
+                    
+                    
+                    NavigationLink(destination: MyReportsView()) {
+                        HStack {
+                            Image(systemName: "person.crop.circle")
+                            Text("My Reports")
+                                .font(.headline)
+                        }
+                        .padding()
+                        .frame(width: 200)
+                        .background(Color.purple)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
                 }
                 Spacer()
             }
