@@ -5,16 +5,14 @@ struct TrailHazardsView: View {
     @State private var selectedTab = 0  
     
     var body: some View {
-        
-        TabView(selection: $selectedTab) {
-            
-            List {
-                Image(trail.mapImageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(10)
-                    .padding(.bottom)
+        List {
+            Image(trail.mapImageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .cornerRadius(10)
+                .padding(.bottom)
 
+            Section(header: Text("Hazards").font(.headline)) {
                 ForEach(trail.hazards) { hazard in
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
@@ -46,22 +44,18 @@ struct TrailHazardsView: View {
                     .padding(.vertical, 6)
                 }
             }
-            .tabItem {
-                Label("Hazards", systemImage: "exclamationmark.triangle")
-            }
-            .tag(0)
             
-            
-            WrongTurnPinsView(trail: trail)
-                .tabItem {
+            Section {
+                NavigationLink(destination: WrongTurnPinsView(trail: trail)) {
                     Label("Navigation Help", systemImage: "arrow.triangle.turn.up.right.diamond")
+                    Text("\(PinStorage.shared.loadPinsForTrail(trailId: trail.id.uuidString).count) navigation markers")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
-                .tag(1)
+            }
         }
-        
         .navigationTitle(trail.name)
     }
-
     
     private func severityColor(_ severity: String) -> Color {
         switch severity.lowercased() {
