@@ -3,6 +3,7 @@ import CoreLocation
 
 struct WrongTurnPin: Identifiable, Codable {
     var id = UUID()
+    let trailId: String
     let description: String
     let landmarks: String
     let latitude: Double
