@@ -63,6 +63,7 @@ struct CreateWrongTurnPinView: View {
         
         let pin = WrongTurnPin(
             description: description,
+            trailId: trail.id.uuidString,
             landmarks: landmarks,
             latitude: location.coordinate.latitude,
             longitude: location.coordinate.longitude
