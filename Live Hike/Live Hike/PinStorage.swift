@@ -19,7 +19,7 @@ class PinStorage {
         return []
     }
     
-    // New method to load pins for a specific trail
+    
     func loadPinsForTrail(trailId: String) -> [WrongTurnPin] {
         let allPins = loadPins()
         return allPins.filter { $0.trailId == trailId }
