@@ -52,7 +52,7 @@ struct TrailHazardsView: View {
             .tag(0)
             
             
-            WrongTurnPinsView()
+            WrongTurnPinsView(trail: trail)
                 .tabItem {
                     Label("Navigation Help", systemImage: "arrow.triangle.turn.up.right.diamond")
                 }
