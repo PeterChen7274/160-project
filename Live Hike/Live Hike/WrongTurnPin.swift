@@ -8,7 +8,7 @@ struct WrongTurnPin: Identifiable, Codable {
     let landmarks: String
     let latitude: Double
     let longitude: Double
-    //let createdAt = Date()
+    let createdAt = Date
     let userId: String
 
     init(id: UUID = UUID(), 
