@@ -68,6 +68,7 @@ struct CreateWrongTurnPinView: View {
             landmarks: landmarks,
             latitude: location.coordinate.latitude,
             longitude: location.coordinate.longitude,
+            createdAt: Date(),
             userId: UserManager.shared.userId
         )
         
