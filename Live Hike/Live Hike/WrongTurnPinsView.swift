@@ -17,6 +17,7 @@ struct WrongTurnPinsView: View {
                         .tint(.orange)
                 }
             }
+            .mapStyle(.hybrid)
             .mapControls {
                 MapUserLocationButton()
                 MapCompass()
