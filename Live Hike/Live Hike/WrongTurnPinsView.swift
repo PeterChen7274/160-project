@@ -2,9 +2,12 @@ import SwiftUI
 import MapKit
 
 struct WrongTurnPinsView: View {
+    let trail: Trail 
+    
     @State private var pins: [WrongTurnPin] = []
     @State private var showingAddPin = false
     @State private var selectedPin: WrongTurnPin?
+    @State private var isLoading = false 
     
     var body: some View {
         ZStack {
@@ -36,14 +39,26 @@ struct WrongTurnPinsView: View {
         }
         .navigationTitle("Navigation Help")
         .onAppear {
-            pins = PinStorage.shared.loadPins()
+
+            Task {
+                await loadWrongTurnPins()
+            }
         }
         .sheet(isPresented: $showingAddPin) {
-            CreateWrongTurnPinView()
+            CreateWrongTurnPinView(trail: trail) 
                 .onDisappear {
-                    
-                    pins = PinStorage.shared.loadPins()
+                   
+                    Task {
+                        await loadWrongTurnPins()
+                    }
                 }
         }
+    }
+    
+    
+    private func loadWrongTurnPins() async {
+        isLoading = true
+        pins = PinStorage.shared.loadPinsForTrail(trailId: trail.id.uuidString)
+        isLoading = false
     }
 }
