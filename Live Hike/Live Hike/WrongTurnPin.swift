@@ -11,8 +11,14 @@ struct WrongTurnPin: Identifiable, Codable {
     let createdAt = Date()
     let userId: String
 
-    init(id: UUID = UUID(), description: String, trailId: String, landmarks: String,
-         latitude: Double, longitude: Double, createdAt: Date = Date(), userId: String) {
+    init(id: UUID = UUID(), 
+         description: String, 
+         trailId: String, 
+         landmarks: String, 
+         latitude: Double, 
+         longitude: Double, 
+         createdAt: Date = Date(), 
+         userId: String) {
         self.id = id
         self.description = description
         self.trailId = trailId
