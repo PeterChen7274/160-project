@@ -12,57 +12,73 @@ struct LandingView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 40) {
-                Spacer()
-                Text("Explore the best\ntrails around the\nworld. Safely.")
-                    .font(.largeTitle)
-                    .multilineTextAlignment(.center)
-                    .padding()
+            ZStack {
+                // Background Image
+                Image("yosemite")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .edgesIgnoringSafeArea(.all)
+                    .overlay(
+                        Color.black.opacity(0.3)
+                            .edgesIgnoringSafeArea(.all)
+                    )
+                    .accessibilityHidden(true)
                 
-                VStack(spacing: 20) {
-                    NavigationLink(destination: SearchTrailsView()) {
-                        HStack {
-                            Text("Search Trails")
-                                .font(.headline)
-                            Image(systemName: "arrow.right")
-                        }
-                        .padding()
-                        .frame(width: 200)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                    }
+                VStack(spacing: 40) {
+                    // Logo
+                    Image("logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200, height: 200)
+                        .padding(.top, 10)
+                        .accessibilityLabel("Live Hike Logo")
                     
-                    NavigationLink(destination: WildlifeScannerView()) {
-                        HStack {
-                            Image(systemName: "camera.viewfinder")
-                            Text("Wildlife Scanner")
-                                .font(.headline)
-                        }
-                        .padding()
-                        .frame(width: 200)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                    }
+                    Spacer()
                     
-                    
-                    NavigationLink(destination: MyReportsView()) {
-                        HStack {
-                            Image(systemName: "person.crop.circle")
-                            Text("My Reports")
-                                .font(.headline)
-                        }
+                    Text("Explore the best\ntrails around the\nworld. Safely.")
+                        .font(.largeTitle)
+                        .multilineTextAlignment(.center)
                         .padding()
-                        .frame(width: 200)
-                        .background(Color.purple)
                         .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .accessibilityAddTraits(.isHeader)
+                    
+                    VStack(spacing: 20) {
+                        NavigationLink(destination: SearchTrailsView()) {
+                            HStack {
+                                Text("Search Trails")
+                                    .font(.headline)
+                                Image(systemName: "arrow.right")
+                                    .accessibilityHidden(true)
+                            }
+                            .padding()
+                            .frame(width: 200)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .accessibilityLabel("Search Trails")
+                        .accessibilityHint("Double tap to search for hiking trails")
+                        
+                        NavigationLink(destination: WildlifeScannerView()) {
+                            HStack {
+                                Image(systemName: "camera.viewfinder")
+                                    .accessibilityHidden(true)
+                                Text("Wildlife Scanner")
+                                    .font(.headline)
+                            }
+                            .padding()
+                            .frame(width: 200)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .accessibilityLabel("Wildlife Scanner")
+                        .accessibilityHint("Double tap to scan and identify wildlife")
                     }
+                    Spacer()
                 }
-                Spacer()
             }
-            .navigationTitle("Live Hike")
             .navigationBarTitleDisplayMode(.large)
         }
     }
