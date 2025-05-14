@@ -86,6 +86,7 @@ struct SignUpView: View {
                                 .cornerRadius(10)
                                 .focused($focusedField, equals: .password)
                                 .submitLabel(.next)
+                                .textContentType(.newPassword)
                                 .placeholder(when: password.isEmpty) {
                                     Text("Enter your password")
                                         .foregroundColor(Color(.systemGray2))
@@ -107,6 +108,7 @@ struct SignUpView: View {
                                 .cornerRadius(10)
                                 .focused($focusedField, equals: .confirmPassword)
                                 .submitLabel(.done)
+                                .textContentType(.newPassword)
                                 .placeholder(when: confirmPassword.isEmpty) {
                                     Text("Confirm your password")
                                         .foregroundColor(Color(.systemGray2))

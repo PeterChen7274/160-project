@@ -13,12 +13,20 @@ class AuthManager: ObservableObject {
     private var users: [String: User] = [:]
     
     init() {
-        // Load saved state
+        // For demo/simulation purposes, always start unauthenticated
+        #if DEBUG
+        UserDefaults.standard.removeObject(forKey: userKey)
+        UserDefaults.standard.set(false, forKey: authKey)
+        self.currentUser = nil
+        self.isAuthenticated = false
+        #else
+        // Load saved state for release builds
         if let userData = UserDefaults.standard.data(forKey: userKey),
            let user = try? JSONDecoder().decode(User.self, from: userData) {
             self.currentUser = user
             self.isAuthenticated = UserDefaults.standard.bool(forKey: authKey)
         }
+        #endif
     }
     
     private func saveState() {
