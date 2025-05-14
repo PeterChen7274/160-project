@@ -39,6 +39,8 @@ struct CreateWrongTurnPinView: View {
                         savePin()
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
+                    //.background(Color(red: 0.259, green: 0.494, blue: 0.486)) // #427E7C
+                    .foregroundColor(Color(red: 0.259, green: 0.494, blue: 0.486))
                     .disabled(description.isEmpty || landmarks.isEmpty || locationManager.location == nil)
                 }
             }
@@ -48,6 +50,7 @@ struct CreateWrongTurnPinView: View {
                     Button("Cancel") {
                         dismiss()
                     }
+                    .foregroundColor(Color(red: 0.259, green: 0.494, blue: 0.486))
                 }
             }
             .alert("Pin Created", isPresented: $showingSuccess) {

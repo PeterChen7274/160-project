@@ -21,7 +21,9 @@ struct HikeView: View {
             Text(trail.name)
                 .font(.largeTitle)
                 .bold()
-                .padding()
+                .foregroundColor(Color(red: 0.259, green: 0.494, blue: 0.486)) // #427E7C)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
             
             // Timer Display
             Text(timeString(from: elapsedTime))
@@ -65,6 +67,21 @@ struct HikeView: View {
                     .cornerRadius(10)
                 }
                 
+                // Navigation Help Button
+                NavigationLink(destination: WrongTurnPinsView(trail: trail)) {
+                    HStack {
+                        Image(systemName: "map.fill")
+                        Text("Wrong Turn?")
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color(red: 0.259, green: 0.494, blue: 0.486))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                .accessibilityLabel("Wrong Turn?")
+                .accessibilityHint("Double tap to view map and mark wrong turns on the trail")
+                
                 // Wildlife Scanner Button
                 NavigationLink(destination: WildlifeScannerView()) {
                     HStack {
@@ -73,7 +90,7 @@ struct HikeView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.green)
+                    .background(Color(red: 0.259, green: 0.494, blue: 0.486)) // #427E7C)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
@@ -166,4 +183,4 @@ struct HikeView: View {
         let seconds = Int(timeInterval) % 60
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
-} 
+}

@@ -44,7 +44,7 @@ struct TrailHazardsView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.purple)
+                        .background(Color(red: 0.259, green: 0.494, blue: 0.486))
                         .foregroundColor(.white)
                         .cornerRadius(10)
                     }
@@ -117,6 +117,14 @@ struct TrailHazardsView: View {
                 .padding()
                 
                 Spacer()
+                
+                // Logo - make sure it's visible at the bottom
+//                Image("logo")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 40, height: 40)  // Adjust size to fit
+//                    .padding(.bottom, 20)  // Add padding if necessary
+//                    .accessibilityLabel("Live Hike Logo")
             }
             .tabItem {
                 Label("Info", systemImage: "info.circle.fill")
@@ -157,4 +165,8 @@ struct InfoRow: View {
 }
 
 
-
+#Preview {
+    NavigationView {
+        SearchTrailsView()
+    }
+}

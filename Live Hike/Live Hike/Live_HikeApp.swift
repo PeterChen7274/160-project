@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Live_HikeApp: App {
+    @StateObject private var authManager = AuthManager()
+    
     var body: some Scene {
         WindowGroup {
             LandingView()
+                .environmentObject(authManager)
         }
     }
 }

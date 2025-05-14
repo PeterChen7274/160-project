@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct LandingView: View {
-    @State private var isShowingSearch = false
-    @StateObject private var historyStore = HikeHistoryStore()
+    @StateObject private var authManager = AuthManager()
+    @State private var showingLogin = false
+    @State private var showingSignUp = false
     
     var body: some View {
         NavigationView {
@@ -26,79 +27,69 @@ struct LandingView: View {
                     )
                     .accessibilityHidden(true)
                 
-                VStack(spacing: 40) {
+                VStack(spacing: 0) {
+                    Spacer()
+                        .frame(height: 0) // Reduced from 60
+                    
                     // Logo
                     Image("logo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 200, height: 200)
-                        .padding(.top, 10)
-                        .accessibilityLabel("Live Hike Logo")
                     
-                    Spacer()
-                    
+                    // Welcome Text
                     Text("Explore the best\ntrails around **you**. Safely.")
-                        .font(.largeTitle)
+                        .font(.system(size: 34, weight: .medium))
                         .multilineTextAlignment(.center)
-                        .padding()
                         .foregroundColor(.white)
                         .accessibilityAddTraits(.isHeader)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.horizontal, 24)
+                        .padding(.top, 90) // Small padding after logo
                     
-                    VStack(spacing: 20) {
-                        NavigationLink(destination: SearchTrailsView()) {
-                            HStack {
-                                Text("Search Trails")
-                                    .font(.headline)
-                                Image(systemName: "arrow.right")
-                                    .accessibilityHidden(true)
-                            }
-                            .padding()
-                            .frame(width: 200)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                    Spacer().frame(height: 30)
+                    
+                    // Login/Signup buttons
+                    VStack(spacing: 12) {
+                        Button("Login") {
+                            showingLogin = true
                         }
-                        .accessibilityLabel("Search Trails")
-                        .accessibilityHint("Double tap to search for hiking trails")
+                        .foregroundColor(.white)
+                        .frame(width: 200)
+                        .padding(.vertical, 8)
+                        .background(Color.white.opacity(0.15))
+                        .cornerRadius(10)
                         
-                        NavigationLink(destination: WildlifeScannerView()) {
-                            HStack {
-                                Image(systemName: "camera.viewfinder")
-                                    .accessibilityHidden(true)
-                                Text("Wildlife Scanner")
-                                    .font(.headline)
-                            }
-                            .padding()
-                            .frame(width: 200)
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                        Button("Sign Up") {
+                            showingSignUp = true
                         }
-                        .accessibilityLabel("Wildlife Scanner")
-                        .accessibilityHint("Double tap to scan and identify wildlife")
-                        
-                        NavigationLink(destination: HikeHistoryView()) {
-                            HStack {
-                                Image(systemName: "clock.arrow.circlepath")
-                                    .accessibilityHidden(true)
-                                Text("Hike History")
-                                    .font(.headline)
-                            }
-                            .padding()
-                            .frame(width: 200)
-                            .background(Color.purple)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                        }
-                        .accessibilityLabel("Hike History")
-                        .accessibilityHint("Double tap to view your completed hikes")
+                        .foregroundColor(.white)
+                        .frame(width: 200)
+                        .padding(.vertical, 8)
+                        .background(Color.white.opacity(0.15))
+                        .cornerRadius(10)
                     }
-                    Spacer()
+                    .padding(.bottom, 140) // Increased to move buttons up more
                 }
             }
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarHidden(true)
+            .sheet(isPresented: $showingLogin) {
+                LoginView()
+                    .environmentObject(authManager)
+            }
+            .sheet(isPresented: $showingSignUp) {
+                SignUpView()
+                    .environmentObject(authManager)
+            }
+            .fullScreenCover(isPresented: .init(
+                get: { authManager.isAuthenticated },
+                set: { _ in }
+            )) {
+                HomeView()
+                    .environmentObject(authManager)
+            }
         }
-        .environmentObject(historyStore)
+        .environmentObject(authManager)
     }
 }
 

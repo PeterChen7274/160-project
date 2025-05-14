@@ -173,7 +173,7 @@ struct WildlifeScannerView: View {
                 VStack(spacing: 20) {
                     Image(systemName: "photo.on.rectangle")
                         .font(.system(size: 60))
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color(red: 0.259, green: 0.494, blue: 0.486))
                         .accessibilityHidden(true)
                     
                     Text("Scan Wildlife")
@@ -197,11 +197,12 @@ struct WildlifeScannerView: View {
                     Image(systemName: "photo.on.rectangle")
                         .accessibilityHidden(true)
                     Text(scannedImage == nil ? "Select Photo" : "Select Another")
+                    
                 }
                 .font(.headline)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color.blue)
+                .background(Color(red: 0.259, green: 0.494, blue: 0.486))
                 .foregroundColor(.white)
                 .cornerRadius(10)
             }

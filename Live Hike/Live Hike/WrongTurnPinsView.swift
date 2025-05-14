@@ -2,12 +2,12 @@ import SwiftUI
 import MapKit
 
 struct WrongTurnPinsView: View {
-    let trail: Trail 
+    let trail: Trail
     
     @State private var pins: [WrongTurnPin] = []
     @State private var showingAddPin = false
     @State private var selectedPin: WrongTurnPin?
-    @State private var isLoading = false 
+    @State private var isLoading = false
     
     var body: some View {
         ZStack {
@@ -28,24 +28,26 @@ struct WrongTurnPinsView: View {
                 
                 Button {
                     showingAddPin = true
-                } label: {
+                }
+                label: {
                     Label("Mark Wrong Turn", systemImage: "exclamationmark.triangle")
                         .padding()
-                        .background(Color.blue)
+                        .background(Color(red: 0.259, green: 0.494, blue: 0.486)) // #427E7C
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
                 .padding()
             }
         }
-        .navigationTitle("Navigation Help")
+        .navigationTitle("Wrong Turn?")
+    
         .onAppear {
             Task {
                 await loadWrongTurnPins()
             }
         }
         .sheet(isPresented: $showingAddPin) {
-            CreateWrongTurnPinView(trail: trail) 
+            CreateWrongTurnPinView(trail: trail)
                 .onDisappear {
                     Task {
                         await loadWrongTurnPins()
@@ -58,5 +60,20 @@ struct WrongTurnPinsView: View {
         isLoading = true
         pins = PinStorage.shared.loadPinsForTrail(trailId: trail.id.uuidString)
         isLoading = false
+    }
+}
+
+#Preview {
+    NavigationView {
+        WrongTurnPinsView(trail: Trail(
+            name: "Sample Trail",
+            location: "Sample Location",
+            difficulty: "Easy",
+            length: "5 miles",
+            elevation: "100 ft",
+            imageName: "rainier",
+            mapImageName: "rainier_map",
+            hazards: []
+        ))
     }
 }

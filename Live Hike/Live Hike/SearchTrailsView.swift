@@ -1,5 +1,16 @@
 import SwiftUI
 
+extension UINavigationBar {
+    static func changeAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(red: 0.259, green: 0.494, blue: 0.486, alpha: 1.0)]
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+}
+
 class TrailStore: ObservableObject {
     @Published var trails: [Trail]
     
@@ -94,6 +105,10 @@ struct SearchTrailsView: View {
     @StateObject private var trailStore = TrailStore()
     @State private var searchText = ""
 
+    init() {
+        UINavigationBar.changeAppearance()
+    }
+    
     var filteredTrails: [Trail] {
         if searchText.isEmpty {
             return trailStore.trails
@@ -128,6 +143,7 @@ struct SearchTrailsView: View {
                             Text(trail.name)
                                 .font(.headline)
                                 .accessibilityAddTraits(.isHeader)
+                                .foregroundColor(Color(red: 0.259, green: 0.494, blue: 0.486)) // #427E7C)
                             Text(trail.location)
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
@@ -142,6 +158,17 @@ struct SearchTrailsView: View {
                 .accessibilityLabel("List of hiking trails")
             }
             .navigationTitle("Search Trails")
+            .foregroundColor(Color(red: 0.259, green: 0.494, blue: 0.486)) // #427E7C for "Search Trails" title
+//            .navigationBarTitleDisplayMode(.inline)
+//            .toolbar {
+//                ToolbarItem(placement: .principal) {
+//                    Text("Search Trails")
+//                        .foregroundColor(Color(red: 0.259, green: 0.494, blue: 0.486))
+//                        .font(.system(size: 35, weight: .heavy))
+//
+//                }
+//            }
+//            .foregroundStyle(Color(red: 0.259, green: 0.494, blue: 0.486))
         }
     }
 }
@@ -166,4 +193,4 @@ struct SearchBar: View {
     NavigationView {
         SearchTrailsView()
     }
-} 
+}

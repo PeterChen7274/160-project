@@ -79,4 +79,4 @@ struct HikeHistoryView: View {
         let minutes = Int(timeInterval) / 60 % 60
         return String(format: "%dh %dm", hours, minutes)
     }
-} 
+}
