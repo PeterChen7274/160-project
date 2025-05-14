@@ -37,7 +37,7 @@ struct LandingView: View {
                     
                     Spacer()
                     
-                    Text("Explore the best\ntrails around the\nworld. Safely.")
+                    Text("Explore the best\ntrails around **you**. Safely.")
                         .font(.largeTitle)
                         .multilineTextAlignment(.center)
                         .padding()
