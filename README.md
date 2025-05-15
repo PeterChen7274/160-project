@@ -16,7 +16,7 @@ LiveHike is a native iOS application that addresses the lack of real-time inform
 ## Technology
 
 Built with SwiftUI for iOS
-SQLite database with Python API for hazard storage
+SQLite database with Python API for hazard storage.
 
 ## Development Status
 Currently in prototype phase based on extensive user research with experienced hikers in the Berkeley area. 
