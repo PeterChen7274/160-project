@@ -2,10 +2,10 @@
 LiveHike is a native iOS application that addresses the lack of real-time information available to hikers. While existing apps provide general trail information, LiveHike delivers community-driven, up-to-the-minute hazard updates, wildlife identification, and navigation assistance.
 
 ## Features
-Wildlife Recognition - Identify plants and animals with our AI-powered scanner to check for potential dangers
-Hazard Reporting System - Report and view physical trail hazards with images, locations, and descriptions
-Wrong Turn Pins - Access community-created navigation assistance at confusing trail intersections
-Trail Safety Ratings - View historical hazard data and risk assessments before heading out
+1. Wildlife Recognition - Identify plants and animals with our AI-powered scanner to check for potential dangers
+2. Hazard Reporting System - Report and view physical trail hazards with images, locations, and descriptions
+3. Wrong Turn Pins - Access community-created navigation assistance at confusing trail intersections
+4. Trail Safety Ratings - View historical hazard data and risk assessments before heading out
 
 ## Usage
 1. Find a Trail - Search for trails and check real-time hazard reports before hiking
