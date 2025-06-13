@@ -14,12 +14,14 @@ LiveHike is a native iOS application that addresses the lack of real-time inform
 4. Create Navigation Pins - Help other hikers by marking tricky trail intersections
 
 ## Technology
-
 Built with SwiftUI for iOS
 SQLite database with Python API for hazard storage.
 
 ## Development Status
-Currently in prototype phase based on extensive user research with experienced hikers in the Berkeley area. 
+Currently in prototype and testing phase based on extensive user research with experienced hikers in the Berkeley area. 
+
+## Demo Video Walkthrough
+Click [this link](https://drive.google.com/file/d/1fRyqRJVL7SEHEcvgx4lkVwUg-1xGKWfh/view?usp=sharing) to watch a walkthrough of our app.
 
 ## Team
 Created by Builder Bears as part of CS 160 at UC Berkeley.
